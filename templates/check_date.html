@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Test {% endblock title %}
+{% block content %}
+<div class="left-ads-display col-lg-2">
+    <div id="errors"></div>
+    <form method="POST" id="formChDate">
+    <table>
+        {{ form }}
+    </table>
+    <input type="submit" value="Send" >
+</form>
+</div>
+<script>
+$(function() {
+      $('#formChDate').submit(function(e) {
+        var $form = $(this);
+        $form.find('input').attr('disabled', 'disabled');
+        console.log($form.serialize());
+        console.log($form.serializeArray());
+        console.log($('#id_over_cur_year').prop('checked'));
+        $.ajax({
+          type: $form.attr('method'),
+          url: $form.attr('action'),
+          data: {'year': $('#id_year').val(), 'over_cur_year': $('#id_over_cur_year').prop('checked')}
+        }).done(function(response) {
+            $form.find('input').removeAttr('disabled');
+            if (response.errors) {
+                $('#errors').addClass('error').removeClass('success').text(response.errors)
+            }
+            if (response.result) {
+                $('#errors').addClass('success').removeClass('error').text(response.result)
+            }
+        }).fail(function() {
+          console.log('fail');
+        });
+        //отмена действия по умолчанию для кнопки submit
+        e.preventDefault();
+      });
+    });
+</script>
+
+{% endblock content %}

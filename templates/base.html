@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" media="all">
+<html lang="ru">
+<head>
+    <!-- //Meta tag Keywords -->
+    <title>{% block title %} {% endblock title %}</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+</head>
+<body>
+{% include 'include/header.html' %}
+<div class="content">
+        <div class="row">
+            <div class="side-bar col-lg-1">{% include 'include/sidebar.html' %}
+            {% block content %}
+            {% endblock content %}
+        </div>
+</div>
+{% include 'include/footer.html' %}
+</body>
+</html>
