@@ -7,6 +7,5 @@ from funcs.views import validate_date, check_date
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('validate_date/', validate_date, name="validate_date"),
     path('check_date/', check_date, name="check_date"),
 ]
